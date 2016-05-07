@@ -1,0 +1,32 @@
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+
+# agrupamento dos endpoints de administracao
+management:
+    context-path: /management
+
+
+# mimimi basico
+server:
+    address: 127.0.0.1 # usar preferencialmente o hostname -i, default so para funcionar
+    port: 8080
+    tomcat:
+        access-log-enabled: true
+        max-threads: 30
+multipart:
+    enabled: false
+spring:
+    application:
+        admin:
+            enabled: true
+            
+webcrawler:
+      pattern: .*\\bnews|noticias\\b.*
+
+datasource:
+    username: usrwebcrawler
+    url: jdbc:jtds:sqlserver://dbWebCrawler:1433/dbWebcrawler;SendStringParametersAsUnicode=false
+    password: dXNyd2ViY3Jhd2xlcg==
+
+# Logins do console
+users:
+    properties: classpath:users.properties

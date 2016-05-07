@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:c="http://www.springframework.org/schema/c"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:property-placeholder ignore-resource-not-found="true" />
+
+  <!-- http://commons.apache.org/proper/commons-dbcp/configuration.html http://jtds.sourceforge.net/faq.html -->
+  <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+    <property name="initialSize" value="0" />
+    <property name="maxActive" value="300" />
+    <property name="maxIdle" value="150" />
+    <property name="minIdle" value="0" />
+    <property name="maxWait" value="2000" />
+    <property name="username" value="${datasource.username}" />
+    <property name="password">
+      <bean class="java.lang.String">
+        <constructor-arg>
+          <bean class="org.apache.commons.codec.binary.Base64" factory-method="decodeBase64" c:_0="${datasource.password}" />
+        </constructor-arg>
+      </bean>
+    </property>
+    <property name="url" value="${datasource.url}" />
+    <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+    <property name="defaultAutoCommit" value="TRUE" />
+    <property name="defaultTransactionIsolation" value="1" /> <!-- java.sql.Connection.TRANSACTION_READ_UNCOMMITTED -->
+    <property name="validationInterval" value="10000" />
+    <property name="validationQuery" value="SELECT 1" />
+    <property name="testOnBorrow" value="true" />
+    <property name="timeBetweenEvictionRunsMillis" value="5000" />
+    <property name="jdbcInterceptors" value="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState" />
+  </bean>
+  
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" c:_0-ref="dataSource" /> 
+
+</beans>

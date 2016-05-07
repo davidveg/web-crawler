@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <beans:bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    
+    <beans:bean class="org.springframework.jmx.export.MBeanExporter" lazy-init="false" id="mbeanExporter">
+        <beans:property name="beans">
+            <beans:map>
+                <beans:entry key="com.m4u.password:name=BCrypt" value-ref="bcryptEncoder" />
+            </beans:map>
+        </beans:property>
+    </beans:bean>
+
+    <http auto-config="true" authentication-manager-ref="authManager" use-expressions="false" disable-url-rewriting="false">
+        <headers disabled="true" />       
+        <csrf    disabled="true" />       
+        <intercept-url pattern="/management/**" access="ROLE_USER" />
+        <http-basic />
+        <session-management session-fixation-protection="newSession">
+            <concurrency-control max-sessions="1" />
+        </session-management>
+    </http>
+
+    <authentication-manager id="authManager">
+        <authentication-provider>
+            <password-encoder ref="bcryptEncoder" />
+            <user-service properties="${users.properties}" />
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="120 seconds">
+
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+  
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+  
+  <property name="LOG_FILE" value="${log_file_path}/server}"/>
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <encoder>
+      <pattern>${FILE_LOG_PATTERN}</pattern>
+    </encoder>
+    <file>${LOG_FILE}.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_FILE}.%d.log
+      </fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <append>true</append>
+  </appender>  
+  <appender name="FILE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    <maxFlushTime>4000</maxFlushTime>
+    <appender-ref ref="FILE" />
+  </appender>
+  
+  <property name="LOG_POLLER" value="${log_file_path}/poller}"/>
+  <appender name="POLLER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <encoder>
+      <pattern>%d{yyyyMMdd:HHmmss.SSS}:[%-17t] %-77logger : %m%n</pattern>
+    </encoder>
+    <file>${LOG_POLLER}.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_POLLER}.%d.log
+      </fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <append>true</append>
+  </appender>
+  <appender name="POLLER_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+    <maxFlushTime>4000</maxFlushTime>
+    <appender-ref ref="POLLER" />
+  </appender>
+    
+  <root level="WARN">
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="FILE_ASYNC" />
+  </root>
+
+  <logger name="com.m4u" level="INFO" />
+  <logger name="org.springframework.boot.context.embedded" level="INFO" />
+  
+  <logger name="com.m4u.plataformas.pegasus.producer.poller" level="INFO" additivity="false" >
+    <appender-ref ref="POLLER_ASYNC" />
+  </logger>
+</configuration>
