@@ -11,7 +11,7 @@
 	<artifactId>web-crawler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
+	<description>Teste de Spring Boot e Srping Data Rest</description>
 	<modules>
 		<module>web-crawler-boundary</module>
 		<module>web-crawler-model</module>
