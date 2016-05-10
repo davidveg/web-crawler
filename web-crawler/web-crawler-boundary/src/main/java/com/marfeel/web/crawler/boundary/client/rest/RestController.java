@@ -22,8 +22,8 @@ import com.marfeel.web.crawler.processor.creator.ServicePool;
 @RequestMapping("marfeel/web/crawler/v1")
 public class RestController {
 
-	Logger LOG = LoggerFactory.getLogger(RestController.class);
-	
+	Logger LOG = LoggerFactory.getLogger(this.getClass());
+
 	@Autowired
 	@Qualifier("threadPoolService")
 	private ServicePool service;
