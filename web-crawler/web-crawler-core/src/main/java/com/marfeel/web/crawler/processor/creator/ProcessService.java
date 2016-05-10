@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +16,6 @@ import com.marfeel.web.crawler.model.RequestEvaluation;
 @Component
 public class ProcessService {
 
-	private final Logger LOG = LoggerFactory.getLogger(ProcessService.class);
-
 	@Autowired
 	private String regex;
 
@@ -28,22 +24,37 @@ public class ProcessService {
 	@Autowired
 	private RequestEvaluationRepository rRepo;
 
-	public void start(RequestEvaluation re) {
+	public ProcessService(String regex, RequestEvaluationRepository rRepo) {
+		super();
+		this.regex = regex;
+		this.rRepo = rRepo;
+	}
+
+	public void start(RequestEvaluation re) throws IOException {
 		try {
-			String url = re.getUrl().contains("www.") ? re.getUrl() : "www." + re.getUrl();
-			url = url.contains("http") ? url : "http://" + url;
-			Response response = Jsoup.connect(url).userAgent(USER_AGENT).followRedirects(true).timeout(3000).execute();
-			Document doc = Jsoup.connect(response.url().toString()).userAgent(USER_AGENT).timeout(3000)
-					.validateTLSCertificates(false).get();
-			Pattern pattern = Pattern.compile(regex);
-			Matcher matcher = pattern.matcher(doc.title());
-			if (matcher.matches()) {
-				// Its Mafelliazable, persists rank
-				rRepo.save(re);
+			if (valid(re)) {
+				String url = re.getUrl().contains("www.") ? re.getUrl() : "www." + re.getUrl();
+				url = url.contains("http") ? url : "http://" + url;
+				Response response = Jsoup.connect(url).userAgent(USER_AGENT).followRedirects(true).timeout(3000)
+						.execute();
+				Document doc = Jsoup.connect(response.url().toString()).userAgent(USER_AGENT).timeout(3000)
+						.validateTLSCertificates(false).get();
+				Pattern pattern = Pattern.compile(regex);
+				Matcher matcher = pattern.matcher(doc.title());
+				if (matcher.matches()) {
+					// Its Mafelliazable, persists rank
+					rRepo.save(re);
+				}
 			}
 		} catch (IOException e) {
-			LOG.error("http error:" + e);
+			throw e;
 		}
+	}
 
+	private boolean valid(RequestEvaluation re) {
+		if (re.getUrl() != null && !re.getUrl().replaceAll(" ", "").equals("")) {
+			return true;
+		} else
+			return false;
 	}
 }
