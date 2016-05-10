@@ -9,6 +9,14 @@
 	<artifactId>web-crawler-boundary</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-webmvc</artifactId>
 		</dependency>
@@ -18,23 +26,15 @@
 		</dependency>
 		<dependency>
 			<groupId>com.marfeel.web.crawler</groupId>
-			<artifactId>web-crawler-infrastructure</artifactId>
+			<artifactId>web-crawler-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.marfeel.web.crawler</groupId>
-			<artifactId>web-crawler-persistence</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>web-crawler-infrastructure</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>

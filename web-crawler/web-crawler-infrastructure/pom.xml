@@ -9,8 +9,12 @@
 	<artifactId>web-crawler-infrastructure</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.marfeel.web.crawler</groupId>
+			<artifactId>web-crawler-persistence</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.marfeel.web.crawler</groupId>

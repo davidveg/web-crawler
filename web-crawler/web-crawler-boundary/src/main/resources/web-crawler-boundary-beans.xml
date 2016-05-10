@@ -18,7 +18,7 @@
 		ignore-resource-not-found="true" />
 
 	<context:component-scan base-package="com.marfeel.web.crawler.boundary.client.rest" />
-	<jpa:repositories base-package="com.marfeel.web.crawler.boundary.client.rest" />
+	<jpa:repositories base-package="com.marfeel.web.crawler.infrastrucutre.repo" />
 
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
 
@@ -27,7 +27,7 @@
 			value="${webcrawler.pattern}" />
 	</bean>
 
-	<bean name="threadPoolService"
+	<bean id="threadPoolService" name="threadPoolService"
 		class="com.marfeel.web.crawler.processor.creator.ThreadPoolService">
 		<constructor-arg type="org.springframework.core.task.TaskExecutor"
 			ref="taskExecutor" />

@@ -35,15 +35,15 @@
 		</dependency>
 		<dependency>
 			<groupId>com.marfeel.web.crawler</groupId>
+			<artifactId>web-crawler-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.marfeel.web.crawler</groupId>
 			<artifactId>web-crawler-infrastructure</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.marfeel.web.crawler</groupId>
-			<artifactId>web-crawler-persistence</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.marfeel.web.crawler</groupId>
-			<artifactId>web-crawler-model</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

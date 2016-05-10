@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskRejectedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,15 +16,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.marfeel.web.crawler.model.RequestEvaluation;
-import com.marfeel.web.crawler.processor.creator.ThreadPoolService;
+import com.marfeel.web.crawler.processor.creator.ServicePool;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("marfeel/web/crawler/v1")
 public class RestController {
 
 	Logger LOG = LoggerFactory.getLogger(RestController.class);
+	
 	@Autowired
-	private ThreadPoolService service;
+	@Qualifier("threadPoolService")
+	private ServicePool service;
 
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value = { "/receive" }, method = RequestMethod.POST)
