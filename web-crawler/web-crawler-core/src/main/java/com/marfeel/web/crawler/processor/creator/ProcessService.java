@@ -24,8 +24,10 @@ public class ProcessService {
 	@Autowired
 	private RequestEvaluationRepository rRepo;
 
+	public ProcessService() {
+	}
+
 	public ProcessService(String regex, RequestEvaluationRepository rRepo) {
-		super();
 		this.regex = regex;
 		this.rRepo = rRepo;
 	}

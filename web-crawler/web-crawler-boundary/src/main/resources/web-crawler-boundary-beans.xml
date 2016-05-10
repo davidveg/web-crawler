@@ -21,7 +21,7 @@
 	<jpa:repositories base-package="com.marfeel.web.crawler.infrastrucutre.repo" />
 
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
-
+		
 	<bean id="regex" class="java.lang.String">
 		<constructor-arg index="0" type="java.lang.String"
 			value="${webcrawler.pattern}" />

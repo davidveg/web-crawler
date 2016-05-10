@@ -13,7 +13,8 @@
 			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 			http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
- <bean id="service" class="org.mockito.Mockito" factory-method="mock">
-    <constructor-arg value="com.marfeel.web.crawler.processor.creator.ServicePool" />
-  </bean>
+	<bean id="service" class="org.mockito.Mockito" factory-method="mock">
+		<constructor-arg
+			value="com.marfeel.web.crawler.processor.creator.ServicePool" />
+	</bean>
 </beans>
